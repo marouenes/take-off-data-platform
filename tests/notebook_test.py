@@ -6,12 +6,6 @@ import pytest
 
 from utils.notebook_utils import generate_session
 
-'''
-def test_renew_tickefile():
-    """Simply make sure that correct exception is raised"""
-    with pytest.raises(ValueError):
-        renew_tickefile()
-'''
 
 def test_generate_session():
     """

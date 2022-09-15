@@ -14,30 +14,6 @@ from typing import Dict, Optional
 from pyspark.sql import SparkSession
 
 
-'''
-def generate_mapr_ticket(cluster: str):
-    """
-    Prompts user for signum-password and runs maprlogin to renew mapr credentials
-    on cluster.
-
-    possible clusters:
-        rdidev1 - mapr dev cluster
-        rdiprod1 - mapr prod cluster
-    """
-    assert cluster in ['rdidev1', 'rdiprod1']
-    user = os.environ['USER']
-    expected_ans = f"[Password for user '{user}' at cluster '{cluster}': ] "
-    ticket_location = f'/mapr/{cluster}/user/{user}/{user}_ticket'
-    ticket_command = f"maprlogin password -duration 2592000 -out {ticket_location}"
-
-    child = pexpect.spawn(ticket_command)
-    child.expect(expected_ans)
-    print('Provide signum password to maprlogin command:')
-    child.sendline(getpass.getpass())
-    child.expect(pexpect.EOF, timeout=None)
-    return f'Generated ticket at {ticket_location}'
-'''
-
 def generate_session(session_name: str,
                      queue: str,
                      max_executors: int = 2,
