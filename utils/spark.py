@@ -75,8 +75,8 @@ class SparkOperator(SparkSubmitOperator):
         # https://medium.com/@cupreous.bowels/logging-in-spark-with-log4j-how-to-customize-a-driver-and-executors-for-yarn-cluster-mode-1be00b984a7c
         if self.deploy_mode == 'cluster':
             file_path = pathlib.Path(__file__).parent.resolve()
-            driver_properties = f'{file_path}/log4j-driver.properties'
-            executor_properties = f'{file_path}/log4j-executor.properties'
+            driver_properties = f'{file_path}/log4j/log4j-driver.properties'
+            executor_properties = f'{file_path}/log4j/log4j-executor.properties'
             if self._conf is None:
                 self._conf = {}
             self._conf['spark.driver.extraJavaOptions'] = '"-Dlog4j.configuration=file:log4j-driver.properties"'
