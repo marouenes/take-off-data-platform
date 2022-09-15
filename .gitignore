@@ -1,0 +1,8 @@
+# dll files and bytecode
+.pyd
+.pyc
+.pyo
+.pycache*
+*.pyc
+__pycache__/
+.pytest_cache*

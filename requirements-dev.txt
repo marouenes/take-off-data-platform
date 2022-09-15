@@ -1,0 +1,7 @@
+# missing apache-airflow providers
+apache-airflow-providers-postgres==2.4.0
+boto3==1.18.65
+# dev dependancies
+black==19.10b0
+flake8==3.7.9
+pre-commit==2.20.0
