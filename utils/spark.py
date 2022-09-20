@@ -13,7 +13,7 @@ import subprocess
 from datetime import datetime
 
 from airflow.models.connection import Connection
-from airflow.operators.spark.operators.spark_submit import SparkSubmitOperator
+from airflow.contrib.operators.spark_submit_operator import SparkSubmitOperator
 
 
 def zip_directory(path: str, output: str, include_symlinks: bool):

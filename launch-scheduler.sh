@@ -42,6 +42,28 @@ echo_with_color () {
 }
 # }}}
 
+eval "$(conda shell.bash hook)" && conda activate airflow-dev
+
+# {{{ parse a yaml file
+# shellcheck source=parse_yml.sh
+# source parse_yml.sh
+# # }}}
+
+# # set an option for the cli to read the scheduler profile config from profiles/dev/user.yml
+# while getopts ":p:" opt; do
+#     case $opt in
+#         p) profile="$OPTARG"
+#         ;;
+#         \?) echo "Invalid option -$OPTARG" >&2
+#         ;;
+#     esac
+# done
+
+# # parse the profile config
+
+# # shellcheck disable=SC1090
+# source profiles/"$profile"/user.yml
+
 # The scheduler will be launched in the background, and its process ID
 # will be written to the file specified by the PID_FILE variable.
 export PID_FILE=/tmp/scheduler.pid
@@ -51,7 +73,23 @@ info "Setting the process ID for the scheduler to $PID_FILE"
 export AIRFLOW_HOME=~/airflow
 info "Setting the AIRFLOW_HOME environment variable to $AIRFLOW_HOME"
 
+# set a run mode for a local scheduler
+export MODE="debug"
+
+# set the user to run the scheduler as
+USER="$(whoami)"
+export USER
+
+# set the scheduler dag directory owner
+export AIRFLOW_CTX_DAG_OWNER=$USER
+
+# add the ssh key to the ssh agent
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_rsa_thermofisher
+info "Adding the ssh key to the ssh agent"
+
 # info "Setting the AIRFLOW__CORE__EXECUTOR environment variable to LocalExecutor"
+# TODO: issue with sqlite when running with LocalExecutor
 # export AIRFLOW__CORE__EXECUTOR=LocalExecutor
 
 info "Setting a fernet key for airflow"
@@ -60,9 +98,10 @@ info "Setting a fernet key for airflow"
 echo \
 "====================================================
 ENVIROMENT VARIABLES SET FOR AIRFLOW:
+AIRFLOW_CTX_DAG_OWNER=$AIRFLOW_CTX_DAG_OWNER
 AIRFLOW_HOME=$AIRFLOW_HOME
-AIRFLOW__CORE__EXECUTOR=$AIRFLOW__CORE__EXECUTOR
-AIRFLOW__CORE__FERNET_KEY=$AIRFLOW__CORE__FERNET_KEY
+MODE=$MODE
+USER=$USER
 ===================================================="
 
 info "Cheking if the airflow home directory exists"
@@ -72,6 +111,8 @@ else
     warn "Airflow home directory does not exist. Creating it now."
     airflow db init
 fi
+
+airflow db upgrade
 
 cd ~/airflow || exit
 

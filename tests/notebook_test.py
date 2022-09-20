@@ -1,10 +1,11 @@
 """
 Set of tests for notebook helper module.
 """
+from __future__ import annotations
 
 import pytest
 
-from utils.notebook_utils import generate_session
+from utils.notebook import generate_session
 
 
 def test_generate_session():

@@ -1,2 +1,0 @@
-AIRFLOW_HOME: /home/airflow
-DAGS_FOLDER: /home/airflow/dags

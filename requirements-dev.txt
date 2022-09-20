@@ -1,7 +1,9 @@
 # missing apache-airflow providers
 apache-airflow-providers-postgres==2.4.0
+apache-airflow-providers-apache-spark==2.0.2
 boto3==1.18.65
 # dev dependancies
 black==19.10b0
 flake8==3.7.9
 pre-commit==2.20.0
+ipykernel==6.5.0
