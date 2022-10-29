@@ -8,13 +8,7 @@ from __future__ import annotations
 import sys
 
 import pyspark.sql.functions as sf
-from pyspark import SparkContext as sc
 from pyspark.sql import DataFrame, SparkSession
-
-# initialize the spark logger
-log4jLogger = sc._jvm.org.apache.log4j
-logger = log4jLogger.LogManager.getLogger(__name__)
-logger.setLevel(log4jLogger.Level.INFO)
 
 
 def main(input_path: DataFrame, output_path: DataFrame):
