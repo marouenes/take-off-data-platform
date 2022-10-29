@@ -26,14 +26,6 @@ class RuntimeErrorWithTraceback(RuntimeError):
     def from_exc_info(cls, exc_info):
         return cls(exc_info[1], exc_info)
 
-    # def wrap_exception_handling(func):
-    #     def wrapper(*args, **kwargs):
-    #         try:
-    #             return func(*args, **kwargs)
-    #         except Exception as e:
-    #             raise RuntimeErrorWithTraceback(str(e), sys.exc_info())
-    #     return wrapper
-
 
 def raise_with_traceback(exc_type, message, exc_info):
     exc = exc_type(message)

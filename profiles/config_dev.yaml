@@ -1,6 +1,5 @@
-#
 # A list of configuration parameters that are specific to the the application user.
-#
+
 env_vars:
   AIRFLOW_HOME: /home/airflow
   USER: marouane-skandaji
@@ -8,11 +7,11 @@ env_vars:
   AIRFLOW__CORE__LOAD_EXAMPLES: "False"
   AIRFLOW_CTX_DAG_OWNER: marouane-skandaji
   # AIRFLOW__CORE__EXECUTOR: "LocalExecutor"
-# AIRFLOW__CORE__SQL_ALCHEMY_CONN: "postgresql://airflow:airflow@postgres:5432/airflow"
-# etc ...
+  # AIRFLOW__CORE__SQL_ALCHEMY_CONN: "postgresql://airflow:airflow@postgres:5432/airflow"
+  # etc ...
 
 get_latest_repos:
-  git_folder: /home/marouane-skandaji/git
+  git_folder: /home/marouane-skandaji/git-personal
   repo_list:
-  - edp-consumable-master-data
-  - edp-airflow-dag
+  - scheduler
+  - find-your-way
