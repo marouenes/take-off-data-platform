@@ -3,7 +3,6 @@ Helper module for raising special exceptions with a custom traceback
 """
 from __future__ import annotations
 
-import sys
 
 # subclass RuntimeError that includes the traceback
 class RuntimeErrorWithTraceback(RuntimeError):
@@ -20,14 +19,21 @@ class RuntimeErrorWithTraceback(RuntimeError):
         return RuntimeErrorWithTraceback, (self.args[0], self.exc_info)
 
     def __str__(self):
-        return "<RuntimeErrorWithTraceback: %s>" % self.args[0]
+        return '<RuntimeErrorWithTraceback: %s>' % self.args[0]
 
     @classmethod
     def from_exc_info(cls, exc_info):
         return cls(exc_info[1], exc_info)
 
 
-def raise_with_traceback(exc_type, message, exc_info):
+def raise_with_traceback(exc_type: type, message: str, exc_info: tuple):
+    """
+    Raise an exception with the traceback.
+
+    :param exc_type: Type of exception to raise
+    :param message: Message to include in the exception
+    :param exc_info: Exception info from sys.exc_info()
+    """
     exc = exc_type(message)
     exc.__cause__ = RuntimeErrorWithTraceback(message, exc_info)
     raise exc

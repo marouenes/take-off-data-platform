@@ -6,14 +6,14 @@ Module for SparkSubmitOperator with zip functionality
 # pylint: disable=W0104 # Disable warning about non-effect statements on tasks
 
 import os
-import time
-import zipfile
 import pathlib
 import subprocess
+import time
+import zipfile
 from datetime import datetime
 
-from airflow.models.connection import Connection
 from airflow.contrib.operators.spark_submit_operator import SparkSubmitOperator
+from airflow.models.connection import Connection
 
 
 def zip_directory(path: str, output: str, include_symlinks: bool):
@@ -79,8 +79,12 @@ class SparkOperator(SparkSubmitOperator):
             executor_properties = f'{file_path}/log4j/log4j-executor.properties'
             if self._conf is None:
                 self._conf = {}
-            self._conf['spark.driver.extraJavaOptions'] = '"-Dlog4j.configuration=file:log4j-driver.properties"'
-            self._conf['spark.executor.extraJavaOptions'] = '"-Dlog4j.configuration=file:log4j-executor.properties"'
+            self._conf['spark.driver.extraJavaOptions'] = (
+                '"-Dlog4j.configuration=file:log4j-driver.properties"'
+            )
+            self._conf['spark.executor.extraJavaOptions'] = (
+                '"-Dlog4j.configuration=file:log4j-executor.properties"'
+            )
             self._files = f'{driver_properties},{executor_properties}'
 
     def read_log(self):
@@ -97,7 +101,7 @@ class SparkOperator(SparkSubmitOperator):
         command = ['yarn', 'logs', '-applicationId', yarn_application_id]
         proc = subprocess.Popen(command, stdout=subprocess.PIPE)
 
-        print(f'Found the following log contents from the application:')
+        print('Found the following log contents from the application')
         for line in proc.stdout.readlines():
             print(line.decode('utf-8').rstrip())
 
@@ -129,9 +133,11 @@ class SparkOperator(SparkSubmitOperator):
         """
         if self.zip_path is not None:
             print(f'Zipping {self.repo_path} to {self.zip_path}')
-            zip_directory(path=self.repo_path,
-                          output=self.zip_path,
-                          include_symlinks=self.include_symlinks)
+            zip_directory(
+                path=self.repo_path,
+                output=self.zip_path,
+                include_symlinks=self.include_symlinks,
+            )
             print(f'Running SparkSubmitOperator with py_files={self.zip_path}')
 
     def pre_execute(self, context: dict):
@@ -153,7 +159,7 @@ class SparkOperator(SparkSubmitOperator):
             self.task_exit()
             raise
 
-    def post_execute(self, context: dict, result = None):
+    def post_execute(self, context: dict, result: dict = None):
         """
         Perform the post_execute and call the task_exit function.
         """
