@@ -16,20 +16,18 @@ which DAGs are kept, and `repo_list` which is a list of repos
         - repo_B
         - repo_C
         - repo_D
-				...
+        ...
 """
-from __future__ import print_function
 
 import os
-import sys
 import subprocess
-from pathlib import Path
+import sys
 from datetime import datetime
+from pathlib import Path
 
 import yaml
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
-
 
 # Get environment variables from your Airflow environment.
 MODE = os.environ.get('MODE', None)
@@ -51,7 +49,7 @@ else:
     schedule = None
 
 # Read repo list from config
-with open(config_yaml, 'r') as stream:
+with open(config_yaml) as stream:
     profile_dict = yaml.safe_load(stream)
 
 # Attempt reading the get_latest_repo entry from the configuration yaml
@@ -81,11 +79,13 @@ def update_repo(repo_path: Path):
     # Run the git pull command
     print(f'Attempting to update {repo_path}')
     pull_cmd = f'cd {repo_path} && git pull origin main'
-    process = subprocess.run(pull_cmd,
-                             shell=True,
-                             check=False,
-                             stdout=subprocess.PIPE,
-                             stderr=subprocess.STDOUT)
+    process = subprocess.run(
+        pull_cmd,
+        shell=True,
+        check=False,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
     output = process.stdout.decode()
     print(f'The git pull process returned the following output:\n{output}')
 
@@ -97,11 +97,13 @@ def update_repo(repo_path: Path):
     # If not successful, run git status command to help the user troubleshoot
     print(f'Error trying to update {repo_path}')
     status_cmd = f'cd {repo_path} && git status'
-    process = subprocess.run(status_cmd,
-                             shell=True,
-                             check=False,
-                             stdout=subprocess.PIPE,
-                             stderr=subprocess.STDOUT)
+    process = subprocess.run(
+        status_cmd,
+        shell=True,
+        check=False,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
     output = process.stdout.decode()
     print(f'The git status process returned the following output:\n{output}')
     sys.exit(1)
@@ -109,10 +111,10 @@ def update_repo(repo_path: Path):
 
 dag = DAG(
     'get_latest_repo',
-    tags=['scheduler', 'system_dag'], # Optional
+    tags=['scheduler', 'system_dag'],  # Optional
     default_args=default_args,
-    schedule_interval=None, # Optional
-    doc_md=__doc__
+    schedule_interval=None,  # Optional
+    doc_md=__doc__,
 )
 
 for repo_path in repo_paths:
@@ -120,5 +122,5 @@ for repo_path in repo_paths:
         dag=dag,
         task_id=repo_path.name,
         python_callable=update_repo,
-        op_args=[repo_path]
+        op_args=[repo_path],
     )
