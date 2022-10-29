@@ -35,7 +35,5 @@ clean:
 	@find . -not -path './.venv*' -path '*/__pycache__*' -delete
 	@find . -not -path './.venv*' -path '*/*.egg-info*' -delete
 
-install-package-databricks: isset-PACKAGE_NAME
-	@echo Installing 'dist/${FULLNAME}' on databricks...
-	databricks fs cp dist/${PACKAGE_NAME} dbfs:/libraries/${PACKAGE_NAME} --overwrite
-	databricks libraries install --whl dbfs:/libraries/${PACKAGE_NAME} --cluster-id ${CLUSTER_ID}
+install-package: build
+	pip install dist/${PACKAGE_NAME}
