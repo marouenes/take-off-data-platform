@@ -6,7 +6,6 @@ Spark application to read data from Azure SQL Server and write back to the data 
 from __future__ import annotations
 
 import os
-import re
 import sys
 
 import pyspark.sql.functions as sf
@@ -18,9 +17,9 @@ from pyspark.sql import DataFrame, SparkSession
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils.schema import companies_schema  # noqa: E402
 
+# TODO: use dotenv to load the environment variables
 base_path = os.environ['HOME']
 git = f'{base_path}/git-personal'
-path_matcher = re.compile(r'\$\{([^}^{]+)\}')
 host = os.environ['MSSQL_HOST']
 port = os.environ['MSSQL_PORT']
 database = os.environ['MSSQL_DATABASE']
@@ -29,11 +28,13 @@ password = os.environ['MSSQL_PASSWORD']
 driver = os.environ['MSSQL_DRIVER']
 
 # ! parse the environment variables from the YAML config file
-'''
+r'''
 TODO: Append the logger properties for parsing the yaml config file.
 PY-yaml library doesn't resolve environment variables by default.
 You need to define an implicit resolver that will find the regex
 that defines an environment variable and execute a function to resolve it.
+
+path_matcher = re.compile(r'\$\{([^}^{]+)\}')
 
 def path_constructor(loader: yaml.Loader, node: yaml.Node) -> str:
     """
