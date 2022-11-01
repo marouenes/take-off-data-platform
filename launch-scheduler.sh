@@ -66,6 +66,10 @@ eval "$(conda shell.bash hook)" && conda activate airflow-dev
 
 # The scheduler will be launched in the background, and its process ID
 # will be written to the file specified by the PID_FILE variable.
+# source the bashrc file to get the environment variables
+# shellcheck source=~/.bashrc
+source ~/.bashrc
+
 export PID_FILE=/tmp/scheduler.pid
 info "Setting the process ID for the scheduler to $PID_FILE"
 
@@ -85,7 +89,7 @@ export AIRFLOW_CTX_DAG_OWNER=$USER
 
 # add the ssh key to the ssh agent
 eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/id_rsa_thermofisher
+ssh-add ~/.ssh/id_rsa
 info "Adding the ssh key to the ssh agent"
 
 # info "Setting the AIRFLOW__CORE__EXECUTOR environment variable to LocalExecutor"

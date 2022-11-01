@@ -1,4 +1,4 @@
-# Data automation and processing engine for the Open Data Platform (FYW)
+# Data automation and processing engine for the Open Data Platform - (Take Off)
 
 This is a simple straigtforward spark applcation and an Airflow control layer monorepo.
 
@@ -24,7 +24,7 @@ It is intended to be run locally, and is not designed to be run in a production 
 * Run the bootstrap installation script for airflow
 * Launch the airflow webserver
 * Launch the airflow scheduler
-* Run the spark job on Airflow
+* Schedule the spark jobs on Airflow
 
 ## Running the tests
 

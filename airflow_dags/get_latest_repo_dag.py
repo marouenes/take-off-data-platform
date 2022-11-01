@@ -33,7 +33,7 @@ from airflow.operators.python_operator import PythonOperator
 MODE = os.environ.get('MODE', None)
 USER = os.environ.get('USER', None)
 BASE_PATH = os.environ['HOME']
-PROFILE = BASE_PATH + '/git/scheduler'
+PROFILE = BASE_PATH + '/git-personal/scheduler'
 config_yaml = os.path.join(PROFILE, 'profiles', 'config_dev.yaml')
 
 # Define default DAG args

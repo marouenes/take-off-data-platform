@@ -1,13 +1,13 @@
 # A list of configuration parameters that are specific to the the application user.
 
-env_vars:
+airflow:
   AIRFLOW_HOME: /home/airflow
+  MODE: debug
   USER: marouane-skandaji
   DAGS_FOLDER: /home/airflow/
   AIRFLOW__CORE__LOAD_EXAMPLES: "False"
   AIRFLOW_CTX_DAG_OWNER: marouane-skandaji
-  # AIRFLOW__CORE__EXECUTOR: "LocalExecutor"
-  # AIRFLOW__CORE__SQL_ALCHEMY_CONN: "postgresql://airflow:airflow@postgres:5432/airflow"
+  AIRFLOW__CORE__EXECUTOR: "LocalExecutor"
   # etc ...
 
 get_latest_repos:
@@ -15,3 +15,18 @@ get_latest_repos:
   repo_list:
   - scheduler
   - find-your-way
+
+# Add the table schemas and definition from MS SQL Server DB.
+# The table schemas are used to generate the SQL queries to extract the data from the DB.
+# The table definitions are used to generate the DAGs. The DAGs are generated based on the table definitions.
+# The table schemas and definitions are stored in the folder /home/marouane-skandaji/git-personal/scheduler/airflow/dags/tables
+
+datasources:
+  name: mssql-server
+  type: mssql-db-connector
+  host: ${MSSQL_HOST}
+  port: ${MSSQL_PORT}
+  user: ${MSSQL_USER}
+  password: ${MSSQL_PASSWORD}
+  database: ${MSSQL_DATABASE}
+  driver: ${MSSQL_DRIVER}

@@ -8,19 +8,26 @@ from __future__ import annotations
 import sys
 
 import pyspark.sql.functions as sf
+from pyspark import SparkContext as sc
 from pyspark.sql import DataFrame, SparkSession
 
 
 def main(input_path: DataFrame, output_path: DataFrame):
     """Running a dummy spark job for testing"""
-    spark = (
-        SparkSession
-        .builder
-        .appName('boilerplate_spark')
-        .getOrCreate()
-    )
-    spark.sparkContext.setLogLevel('INFO')
-    spark.conf.set('spark.submit.deployMode', 'local')
+    # check for active spark sessions
+    if sc._active_spark_context is not None:
+        spark = sc._active_spark_context.getOrCreate()
+    else:
+        spark = (
+            SparkSession
+            .builder
+            .getOrCreate()
+        )
+
+    # initialize the logger
+    log4jLogger = sc._jvm.org.apache.log4j
+    logger = log4jLogger.LogManager.getLogger(__name__)
+    logger.setLevel(log4jLogger.Level.INFO)
 
     # read the input data
     input_df = spark.read.csv(input_path, header=True, inferSchema=True)
@@ -32,7 +39,7 @@ def main(input_path: DataFrame, output_path: DataFrame):
     transformed_df.show()
 
     # write to the output path as (parquet, csv, ...)
-    transformed_df.write.csv(output_path, header=True)
+    transformed_df.write.mode('overwrite').csv(output_path, header=True)
 
     # teardown
     spark.stop()

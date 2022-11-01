@@ -24,7 +24,7 @@ config_loc = 'profiles/config_dev.yaml'
 # get the path to the dag folder
 with open(config_loc) as file:
     config = yaml.safe_load(file)
-    DAG_FOLDER = config['env_vars']['DAGS_FOLDER']
+    DAG_FOLDER = config['airflow']['DAGS_FOLDER']
 
 
 @pytest.fixture(scope='session')
