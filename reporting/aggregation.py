@@ -9,6 +9,7 @@ import os
 import sys
 
 import pyspark.sql.functions as sf
+from dotenv import load_dotenv
 from faker import Faker
 from pyspark import SparkContext as sc
 from pyspark.sql import DataFrame, SparkSession
@@ -17,15 +18,18 @@ from pyspark.sql import DataFrame, SparkSession
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils.schema import companies_schema  # noqa: E402
 
-# TODO: use dotenv to load the environment variables
+load_dotenv()
+
+# set the environment variables
+host = os.getenv('MSSQL_HOST')
+port = os.getenv('MSSQL_PORT')
+database = os.getenv('MSSQL_DATABASE')
+driver = os.getenv('MSSQL_DRIVER')
+user = os.getenv('MSSQL_USER')
+password = os.getenv('MSSQL_PASSWORD')
 base_path = os.environ['HOME']
 git = f'{base_path}/git-personal'
-host = os.environ['MSSQL_HOST']
-port = os.environ['MSSQL_PORT']
-database = os.environ['MSSQL_DATABASE']
-user = os.environ['MSSQL_USER']
-password = os.environ['MSSQL_PASSWORD']
-driver = os.environ['MSSQL_DRIVER']
+
 
 # ! parse the environment variables from the YAML config file
 r'''
@@ -108,12 +112,6 @@ def main(input_table_name: str, output_table_name: str):
         sys.exit(1)
 
     mssql_df.show()
-
-    # +---------+-----------+-----------------+-------+---------+---------+
-    # |CompanyId|CompnayName|NumberOfEmployees|FieldId|PackageId|ContactId|
-    # +---------+-----------+-----------------+-------+---------+---------+
-    # |        2| Mehdi Inc.|                1|      3|        2|        2|
-    # +---------+-----------+-----------------+-------+---------+---------+
 
     # run the transformations stages on the dataframe
     transformed_df = main_transformations(spark, mssql_df)

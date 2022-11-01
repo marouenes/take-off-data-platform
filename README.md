@@ -1,4 +1,3 @@
-
 <div style="text-align: center;">
 
 # Open Data Platform - The Take Off Project
