@@ -1,6 +1,6 @@
 <div style="text-align: center;">
 
-# Open Data Platform - The Take Off Project
+# Open Data Platform - The TakeOff Project
 
 [![ci pipeline](https://github.com/marouenes/odp-take-off/actions/workflows/ci.yml/badge.svg)](https://github.com/marouenes/odp-take-off/actions/workflows/ci.yml)
 ![License](https://img.shields.io/badge/license-MIT-yellow.svg)
