@@ -9,7 +9,7 @@ It is intended to be run locally, and is not designed to be run in a production 
 ### Prerequisites
 
 * [Docker](https://www.docker.com/)
-* [Python 3.6](https://www.python.org/downloads/release/python-360/)
+* [Python 3.7](https://www.python.org/downloads/release/python-370/)
 * [Airflow](https://airflow.apache.org/)
 * [Spark](https://spark.apache.org/)
 * [Scala](https://www.scala-lang.org/)
