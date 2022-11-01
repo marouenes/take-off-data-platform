@@ -1,4 +1,12 @@
-# Data automation and processing engine for the Open Data Platform (FYW)
+<div style="text-align: center;">
+
+# Open Data Platform - The Take Off Project
+
+[![ci pipeline](https://github.com/marouenes/odp-take-off/actions/workflows/ci.yml/badge.svg)](https://github.com/marouenes/odp-take-off/actions/workflows/ci.yml)
+![License](https://img.shields.io/badge/license-MIT-yellow.svg)
+[![Code of Conduct](https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat)](https://github.com/marouenes/take-off/blob/main/CONTRIBUTING.md)
+
+</div>
 
 This is a simple straigtforward spark applcation and an Airflow control layer monorepo.
 
@@ -9,7 +17,7 @@ It is intended to be run locally, and is not designed to be run in a production 
 ### Prerequisites
 
 * [Docker](https://www.docker.com/)
-* [Python 3.6](https://www.python.org/downloads/release/python-360/)
+* [Python 3.7](https://www.python.org/downloads/release/python-370/)
 * [Airflow](https://airflow.apache.org/)
 * [Spark](https://spark.apache.org/)
 * [Scala](https://www.scala-lang.org/)
@@ -24,7 +32,7 @@ It is intended to be run locally, and is not designed to be run in a production 
 * Run the bootstrap installation script for airflow
 * Launch the airflow webserver
 * Launch the airflow scheduler
-* Run the spark job on Airflow
+* Schedule the spark jobs on Airflow
 
 ## Running the tests
 

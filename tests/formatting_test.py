@@ -1,5 +1,5 @@
 """
-unit test for the spark boilerplate code
+unit test for the uppercase module
 """
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ import pyspark.sql.types as st
 import pytest
 from pyspark.sql import DataFrame, SparkSession
 
-from reporting.boilerplate import to_uppercase
+from reporting.formatting import to_uppercase
 from testing.fixtures import spark  # noqa: F401
 
 # pylint: disable=redefined-outer-name
