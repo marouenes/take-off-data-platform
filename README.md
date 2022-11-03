@@ -1,12 +1,12 @@
-<div style="text-align: center;">
+<h1 align="center">Open Data Platform - The TakeOff Project</h1>
 
-# Open Data Platform - The Take Off Project
+<h2 align="center">
 
 [![ci pipeline](https://github.com/marouenes/odp-take-off/actions/workflows/ci.yml/badge.svg)](https://github.com/marouenes/odp-take-off/actions/workflows/ci.yml)
 ![License](https://img.shields.io/badge/license-MIT-yellow.svg)
 [![Code of Conduct](https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat)](https://github.com/marouenes/take-off/blob/main/CONTRIBUTING.md)
 
-</div>
+</h2>
 
 This is a simple straigtforward spark applcation and an Airflow control layer monorepo.
 
